@@ -1,0 +1,95 @@
+{% extends 'guitarras/layout.html' %}
+{% load static %}
+
+{% block conteudo %}
+<div>
+    <div class="row mt-5">
+        <div class="col text-center">
+            <img id="cabeca" src="{% static 'guitarras/images/partes/cabecas/jackson.svg' %}" style="height: 70vh; position: absolute;"/>
+            <img id="braco" src="{% static 'guitarras/images/partes/bracos/circulos.svg' %}" style="height: 70vh; position: absolute;"/>
+            <img id="corpo" src="{% static 'guitarras/images/partes/corpos/flying-v.svg' %}" style="height: 70vh; position: absolute;"/>
+            <img id="capitador1" src="{% static 'guitarras/images/partes/capitadores/humbucker1.svg' %}" style="height: 70vh; position: absolute;"/>
+            <img id="capitador2" src="{% static 'guitarras/images/partes/capitadores/humbucker2.svg' %}" style="height: 70vh;"/>
+        </div>
+        <div class="col">
+
+            <div class="card">
+                <div class="card-body">
+                    <form name="guitarraForm" method="post" th:object="${guitarra}" action="{% url 'guitarras:salvar' %}">
+                        {% csrf_token %}
+                        <input type="hidden" value="{{ id }}"/>
+                        <input id="imagem" type="hidden" th:field="*{imagem}"/>
+
+                        <div class="forms-group mb-3">
+                            <label for="nome">Nome da guitarra</label>
+                            <input id="nome" class="form-control" name="nome" type="text" required/>
+                            {% if nome.error %}
+                                <div class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+                            {% endif %}
+                        </div>
+
+                        <div class="forms-group mb-3">
+                            <label for="cabecaSelect">Cabeça</label>
+                            <select id="cabecaSelect" class="form-select" name="cabeca" value="{{ cabeca }}" onchange="trocaCabeca(this.value)">
+                                <option value="jackson">Jackson</option>
+                                <option value="flying-v_1980">Flying-V 1980</option>
+                                <option value="les_paul">Les Paul</option>
+                                <option value="warlock">Warlock</option>
+                            </select>
+                            <div class="text-danger" th:if="${#fields.hasErrors('cabeca')}" th:errors="*{cabeca}"></div>
+                        </div>
+                        <div class="forms-group mb-3">
+                            <label for="bracoSelect">Cabeça</label>
+                            <select id="bracoSelect" class="form-select" name="braco" value="{{ braco }}" onchange="trocaBraco(this.value)">
+                                <option value="circulos">Circulos</option>
+                                <option value="retangulos">Retangulos</option>
+                                <option value="triangulos">Triangulos</option>
+                            </select>
+                            <div class="text-danger" th:if="${#fields.hasErrors('cabeca')}" th:errors="*{cabeca}"></div>
+                        </div>
+                        <div class="forms-group mb-3">
+                            <label for="corpoSelect">Corpo</label>
+                            <select id="corpoSelect" class="form-select" name="corpo" value="{{ corpo }}" onchange="trocaCorpo(this.value)" on>
+                                <option value="flying-v">Flying-V</option>
+                                <option value="explorer">Explorer</option>
+                                <option value="les_paul">Les Paul</option>
+                                <option value="warlock">Warlock</option>
+                                <option value="sg">SG</option>
+                            </select>
+                            <div class="text-danger" th:if="${#fields.hasErrors('corpo')}" th:errors="*{corpo}"></div>
+                        </div>
+
+                        <div class="forms-group mb-3">
+                            <label for="capitador2Select">Capitador braco</label>
+                            <select id="capitador2Select" class="form-select" name="capitador2" value="{{ capitador2 }}" onchange="trocaCapitador2(this.value)">
+                                <option value="humbucker2">Humbucker</option>
+                                <option value="singlecoil2">Singlecoil</option>
+                                <option value="vazio">nenhum</option>
+                            </select>
+                            <div class="text-danger" th:if="${#fields.hasErrors('capitador2')}" th:errors="*{capitador2}"></div>
+                        </div>
+                        <div class="forms-group mb-3">
+                            <label for="capitador1Select">Capitador ponte</label>
+                            <select id="capitador1Select" class="form-select" capitador1 value="{{ capitador1 }}" onchange="trocaCapitador1(this.value)">
+                                <option value="humbucker1">Humbucker</option>
+                                <option value="singlecoil1">Singlecoil</option>
+                            </select>
+                            <div class="text-danger" th:if="${#fields.hasErrors('capitador1')}" th:errors="*{capitador1}"></div>
+                        </div>
+
+                        <div class="forms-group mb-3">
+                            <label for="preco">Preço</label>
+                            <input id="preco" class="form-control" nome="preco" th:field="*{preco}" type="number" required/>
+                            <div class="text-danger" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></div>
+                        </div>
+                    </form>
+                    <button onclick="generateImage()" class="btn btn-primary">Salvar guitarra</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static 'guitarras/scripts/criar-guitarra.js' %}"></script>
+</div>
+{% endblock conteudo %}

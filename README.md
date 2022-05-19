@@ -1,1 +1,1 @@
-# genesis-guitar
+# Genesis Guitar
