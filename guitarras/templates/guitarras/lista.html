@@ -1,29 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout.html}">
+{% extends 'guitarras/layout.html' %}
+{% load l10n %}
+
+{% block conteudo %}
 
 <div layout:fragment="content">
-    <div class="alert alert-primary" th:if="${#lists.isEmpty(guitarras)}">
-        Nenhuma guitarra registrada
-    </div>
-    <div class="alert alert-primary" th:if="${mensagem != null}" th:text="${mensagem}"></div>
+    {% if not guitarras %}
+        <div class="alert alert-primary">
+            Nenhuma guitarra registrada
+        </div>
+    {% endif %}
+    
+    {% if mensagem %}
+        <div class="alert alert-primary">{{ mensagem }}</div>   
+    {% endif %}
+    
 
-    <div th:if="${not #lists.isEmpty(guitarras)}">
+    {% if guitarras %}
         <div class="row row-cols-3">
-            <div class="card text-center mb-3" th:each="guitarra : ${guitarras}">
+            {% for guitarra in guitarras %}
+            <div class="card text-center mb-3">
                 <div class="row g-0">
                     <div class="col">
-                        <img th:src="${guitarra.imagem}" class="img-fluid rounded-start" th:alt="${guitarra.nome}">
+                        <img class="img-fluid rounded-start" th:alt="${guitarra.nome}">
                     </div>
                     <div class="col-md-5 d-flex flex-column">
                         <div class="card-body">
-                            <h5 th:text="${guitarra.nome}"></h5>
-                            <p>Cabeça: <b>[[${guitarra.cabeca}]]</b></p>
-                            <p>Braço: <b>[[${guitarra.braco}]]</b></p>
-                            <p>Corpo: <b>[[${guitarra.corpo}]]</b></p>
-                            <p th:if="${guitarra.capitador2} != 'vazio'">Capitador braço: <b>[[${guitarra.capitador2} == 'humbucker2' ? 'humbucker' : 'singlecoil']]</b></p>
-                            <p>Capitador ponte: <b>[[${guitarra.capitador1} == 'humbucker1' ? 'humbucker' : 'singlecoil']]</b></p>
-                            <p th:text="'R$'+${#numbers.formatDecimal(guitarra.preco, 0 , 'POINT', 2 , 'COMMA')}"></p>
+                            <h5>{{ guitarra.nome }}</h5>
+                            <p>Cabeça: <b>{{ guitarra.cabeca }}</b></p>
+                            <p>Braço: <b>{{ guitarra.braco }}</b></p>
+                            <p>Corpo: <b>{{ guitarra.corpo }}</b></p>
+                            {% if guitarra.capitador2 %}
+                            <p>Capitador braço: <b>{{ guitarra.capitador2 }}</b></p>
+                            {% endif %}
+                            <p>Capitador ponte: <b>{{ guitarra.capitador1 }}</b></p>
+                            <p>R$ {{ guitarra.preco|localize }}</p>
                         </div>
                         <div class="mt-auto mb-3">
                             <a class="btn btn-primary" th:href="@{/guitarras/editar(id=${guitarra.id})}">Editar</a>
@@ -41,7 +51,7 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                Deseja realmente excluir [[${guitarra.nome}]]
+                                Deseja realmente excluir {{ guitarra.nome }}
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
@@ -52,7 +62,7 @@
                 </div>
 
             </div>
+            {% endfor %}
         </div>
-    </div>
-
-</html>
+    {% endif %}
+{% endblock conteudo %}

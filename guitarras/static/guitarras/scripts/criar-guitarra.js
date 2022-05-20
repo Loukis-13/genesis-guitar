@@ -25,5 +25,5 @@ function generateImage() {
 
     document.getElementById('imagem').value = canvas.toDataURL();
 
-     document.guitarraForm.submit();
+    document.guitarraForm.submit();
 }

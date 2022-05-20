@@ -17,8 +17,8 @@
                 <div class="card-body">
                     <form name="guitarraForm" method="post" th:object="${guitarra}" action="{% url 'guitarras:salvar' %}">
                         {% csrf_token %}
-                        <input type="hidden" value="{{ id }}"/>
-                        <input id="imagem" type="hidden" th:field="*{imagem}"/>
+                        <input type="hidden" name="id" value="{{ id }}"/>
+                        <input id="imagem" type="hidden" name="imagem"/>
 
                         <div class="forms-group mb-3">
                             <label for="nome">Nome da guitarra</label>
@@ -79,7 +79,7 @@
 
                         <div class="forms-group mb-3">
                             <label for="preco">Preço</label>
-                            <input id="preco" class="form-control" nome="preco" th:field="*{preco}" type="number" required/>
+                            <input id="preco" class="form-control" name="preco" th:field="*{preco}" type="number" required/>
                             <div class="text-danger" th:if="${#fields.hasErrors('preco')}" th:errors="*{preco}"></div>
                         </div>
                     </form>

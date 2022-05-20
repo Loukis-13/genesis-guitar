@@ -2,7 +2,7 @@
 
 {% block conteudo %}
 <div>
-    {% if not lista %}
+    {% if not guitarras %}
     <div class="alert alert-primary">
         Nenhum instrumento no catalogo
     </div>
@@ -12,7 +12,7 @@
     <div class="alert alert-primary">{{ mensagem }}</div>
     {% endif %}
 
-    {% if lista %}
+    {% for guitarra in guitarras %}
     <div>
         <div class="row">
             <div class="col">
@@ -26,6 +26,6 @@
             </div>
         </div>
     </div>
-    {% endif %}
+    {% endfor %}
 </div>
 {% endblock conteudo %}
