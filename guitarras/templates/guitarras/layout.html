@@ -11,7 +11,7 @@
 <div id="menu">
     <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
         <div class="container-fluid">
-            <a class="navbar-brand" th:href="@{/}">Instrumentos</a>
+            <a class="navbar-brand" href="/">Instrumentos</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                     aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -26,7 +26,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                             <li><a class="dropdown-item" href="{% url 'guitarras:guitarras' %}">Listar</a></li>
-                            <li><a class="dropdown-item" href="{% url 'guitarras:editar' %}">Criar</a></li>
+                            <li><a class="dropdown-item" href="{% url 'guitarras:criar' %}">Criar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -35,8 +35,8 @@
                             Baixos
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{/baixos}">Listar</a></li>
-                            <li><a class="dropdown-item" th:href="@{/baixos/editar}">Criar</a></li>
+                            <li><a class="dropdown-item" href="/baixos">Listar</a></li>
+                            <li><a class="dropdown-item" href="/baixos/editar">Criar</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -45,8 +45,8 @@
                             Baterias
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" th:href="@{/baterias}">Listar</a></li>
-                            <li><a class="dropdown-item" th:href="@{/baterias/editar}">Criar</a></li>
+                            <li><a class="dropdown-item" href="/baterias">Listar</a></li>
+                            <li><a class="dropdown-item" href="/baterias/editar">Criar</a></li>
                         </ul>
                     </li>
                 </div>
@@ -55,9 +55,11 @@
     </nav>
 </div>
 
-{% block conteudo %}
-    
-{% endblock conteudo %}
+<div class="container">
+    {% block conteudo %}
+        
+    {% endblock conteudo %}
+</div>
 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"

@@ -1,8 +1,8 @@
-trocaCorpo=(x)=>document.getElementById('corpo').src=`/static/guitarras/images/partes/corpos/${x}.svg`
-trocaBraco=(x)=>document.getElementById('braco').src=`/static/guitarras/images/partes/bracos/${x}.svg`
-trocaCabeca=(x)=>document.getElementById('cabeca').src=`/static/guitarras/images/partes/cabecas/${x}.svg`
-trocaCapitador1=(x)=>document.getElementById('capitador1').src=`/static/guitarras/images/partes/capitadores/${x}.svg`
-trocaCapitador2=(x)=>document.getElementById('capitador2').src=`/static/guitarras/images/partes/capitadores/${x}.svg`
+trocaCorpo=(x)=>document.getElementById('id_corpo').src=`/static/guitarras/images/partes/corpos/${x}.svg`
+trocaBraco=(x)=>document.getElementById('id_braco').src=`/static/guitarras/images/partes/bracos/${x}.svg`
+trocaCabeca=(x)=>document.getElementById('id_cabeca').src=`/static/guitarras/images/partes/cabecas/${x}.svg`
+trocaCapitador1=(x)=>document.getElementById('id_capitador1').src=`/static/guitarras/images/partes/capitadores/${x}.svg`
+trocaCapitador2=(x)=>document.getElementById('id_capitador2').src=`/static/guitarras/images/partes/capitadores/${x}.svg`
 
 function generateImage() {
     let corpo = document.getElementById('corpo');
@@ -23,7 +23,7 @@ function generateImage() {
     context.drawImage(capitador1, 0, 0);
     context.drawImage(capitador2, 0, 0);
 
-    document.getElementById('imagem').value = canvas.toDataURL();
+    document.getElementById('id_imagem').value = canvas.toDataURL();
 
     document.guitarraForm.submit();
 }

@@ -4,7 +4,7 @@
 {% block conteudo %}
 
 <div layout:fragment="content">
-    {% if not guitarras %}
+    {% if not guitarra_list %}
         <div class="alert alert-primary">
             Nenhuma guitarra registrada
         </div>
@@ -15,13 +15,13 @@
     {% endif %}
     
 
-    {% if guitarras %}
+    {% if guitarra_list %}
         <div class="row row-cols-3">
-            {% for guitarra in guitarras %}
+            {% for guitarra in guitarra_list %}
             <div class="card text-center mb-3">
                 <div class="row g-0">
                     <div class="col">
-                        <img class="img-fluid rounded-start" th:alt="${guitarra.nome}">
+                        <img class="img-fluid rounded-start" src="{{ guitarra.imagem }}" alt="{{ guitarra.nome }}">
                     </div>
                     <div class="col-md-5 d-flex flex-column">
                         <div class="card-body">
@@ -36,14 +36,14 @@
                             <p>R$ {{ guitarra.preco|localize }}</p>
                         </div>
                         <div class="mt-auto mb-3">
-                            <a class="btn btn-primary" th:href="@{/guitarras/editar(id=${guitarra.id})}">Editar</a>
-                            <a class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="'#modal-'+${guitarra.id}">Excluir</a>
+                            <a class="btn btn-primary" href="{% url 'guitarras:editar' guitarra.id %}">Editar</a>
+                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-{{ guitarra.id }}">Excluir</a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Modal -->
-                <div class="modal fade" th:id="'modal-'+${guitarra.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="modal-{{ guitarra.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <a type="button" class="btn btn-danger"  th:href="@{/guitarras/excluir(id=${guitarra.id})}" >Excluir</a>
+                                <a type="button" class="btn btn-danger"  href="{% url 'guitarras:excluir' guitarra.id %}" >Excluir</a>
                             </div>
                         </div>
                     </div>
