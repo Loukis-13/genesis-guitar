@@ -1,6 +1,6 @@
 {% extends 'guitarras/layout.html' %}
 {% load static %}
-{% load bootstrap %}
+{% load bootstrap5 %}
 
 {% block conteudo %}
 <div>
@@ -17,7 +17,7 @@
                 <div class="card-body">
                     <form name="guitarraForm" method="post" action="{% url 'guitarras:salvar' %}">
                         {% csrf_token %}
-                        {{ form | bootstrap }}
+                        {% bootstrap_form form %}
                         <!-- <input type="hidden" name="id" value="{{ id }}"/> -->
                         <input id="id_imagem" type="hidden" name="imagem"/>
                     </form>
