@@ -8,8 +8,11 @@ partes = {
 
 trocaParte=(x, y)=>document.getElementById(x).src=partes[x].replace('{}', y.target.value)
 
-for (let i in partes)
-    document.getElementById('id_'+i).addEventListener("change", trocaParte.bind(this, i))
+for (let i in partes) {
+    let guitarra = document.getElementById('id_'+i)
+    guitarra.addEventListener("change", trocaParte.bind(this, i))
+    document.getElementById(i).src=partes[i].replace('{}', guitarra.value)
+}
 
 function generateImage() {
     let canvas = document.createElement('canvas');

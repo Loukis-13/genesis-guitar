@@ -15,7 +15,7 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <form name="guitarraForm" method="post" action="{% url 'guitarras:salvar' %}">
+                    <form name="guitarraForm" method="post">
                         {% csrf_token %}
                         {% bootstrap_form form %}
                         <!-- <input type="hidden" name="id" value="{{ id }}"/> -->

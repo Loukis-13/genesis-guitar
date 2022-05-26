@@ -1,4 +1,6 @@
 from django.db import models
+from django.core.validators import MinValueValidator
+from django.urls import reverse
 
 
 class Guitarra(models.Model):
@@ -31,6 +33,10 @@ class Guitarra(models.Model):
         ('singlecoil2', 'Singlecoil'),
         ('vazio', 'Sem capitador'),
     ))
-    preco = models.DecimalField("Preço", decimal_places=2, max_digits=8)
+    preco = models.DecimalField("Preço", decimal_places=2, max_digits=7, validators=[MinValueValidator(0)])
     imagem = models.CharField(max_length=20)
     criacao = models.DateTimeField('data de criação', auto_now=True)
+
+    def get_absolute_url(self):
+        return reverse("guitarras:guitarras")
+        

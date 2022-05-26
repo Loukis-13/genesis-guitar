@@ -2,67 +2,61 @@
 {% load l10n %}
 
 {% block conteudo %}
-
-<div layout:fragment="content">
-    {% if not guitarra_list %}
-        <div class="alert alert-primary">
-            Nenhuma guitarra registrada
-        </div>
-    {% endif %}
-    
-    {% if mensagem %}
-        <div class="alert alert-primary">{{ mensagem }}</div>   
-    {% endif %}
-    
-
-    {% if guitarra_list %}
-        <div class="row row-cols-3">
-            {% for guitarra in guitarra_list %}
-            <div class="card text-center mb-3">
-                <div class="row g-0">
-                    <div class="col">
-                        <img class="img-fluid rounded-start" src="{{ guitarra.imagem }}" alt="{{ guitarra.nome }}">
+{% if not guitarra_list %}
+    <div class="alert alert-primary">
+        Nenhuma guitarra registrada
+    </div>
+{% else %}
+    <div class="row row-cols-3">
+        {% for guitarra in guitarra_list %}
+        <div class="card text-center mb-3 col-sm-6">
+            <div class="row g-0">
+                <div class="col">
+                    <img class="img-fluid rounded-start" src="{{ guitarra.imagem }}" alt="{{ guitarra.nome }}">
+                </div>
+                <div class="col-md-5 d-flex flex-column">
+                    <div class="card-body">
+                        <h5>{{ guitarra.nome | title }}</h5>
+                        <p>Cabeça: <b>{{ guitarra.get_cabeca_display }}</b></p>
+                        <p>Braço: <b>{{ guitarra.get_braco_display }}</b></p>
+                        <p>Corpo: <b>{{ guitarra.get_corpo_display }}</b></p>
+                        {% if guitarra.capitador2 %}
+                        <p>Capitador braço: <b>{{ guitarra.get_capitador2_display }}</b></p>
+                        {% endif %}
+                        <p>Capitador ponte: <b>{{ guitarra.get_capitador1_display }}</b></p>
+                        <p>R$ {{ guitarra.preco|localize }}</p>
                     </div>
-                    <div class="col-md-5 d-flex flex-column">
-                        <div class="card-body">
-                            <h5>{{ guitarra.nome }}</h5>
-                            <p>Cabeça: <b>{{ guitarra.cabeca }}</b></p>
-                            <p>Braço: <b>{{ guitarra.braco }}</b></p>
-                            <p>Corpo: <b>{{ guitarra.corpo }}</b></p>
-                            {% if guitarra.capitador2 %}
-                            <p>Capitador braço: <b>{{ guitarra.capitador2 }}</b></p>
-                            {% endif %}
-                            <p>Capitador ponte: <b>{{ guitarra.capitador1 }}</b></p>
-                            <p>R$ {{ guitarra.preco|localize }}</p>
-                        </div>
-                        <div class="mt-auto mb-3">
-                            <a class="btn btn-primary" href="{% url 'guitarras:editar' guitarra.id %}">Editar</a>
-                            <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-{{ guitarra.id }}">Excluir</a>
-                        </div>
+                    <div class="mt-auto mb-3">
+                        <a class="btn btn-primary" href="{% url 'guitarras:editar' guitarra.id %}">Editar</a>
+                        <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modal-{{ guitarra.id }}">Excluir</a>
                     </div>
                 </div>
-
-                <!-- Modal -->
-                <div class="modal fade" id="modal-{{ guitarra.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Confirmar excluir</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Deseja realmente excluir {{ guitarra.nome }}
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                <a type="button" class="btn btn-danger"  href="{% url 'guitarras:excluir' guitarra.id %}" >Excluir</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
-            {% endfor %}
+
+            <!-- Modal -->
+            <div class="modal fade" id="modal-{{ guitarra.id }}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Confirmar excluir</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Deseja realmente excluir {{ guitarra.nome }}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                            <form method="post" action="{% url 'guitarras:excluir' guitarra.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">Excluir</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}
 {% endblock conteudo %}
