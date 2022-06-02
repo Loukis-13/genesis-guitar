@@ -20,37 +20,19 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" th:href="@{/}">Início</a>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="linguagens-navbar" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Guitarras
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="{% url 'guitarras:guitarras' %}">Listar</a></li>
-                            <li><a class="dropdown-item" href="{% url 'guitarras:criar' %}">Criar</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="desenvolvedores-navbar" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Baixos
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/baixos">Listar</a></li>
-                            <li><a class="dropdown-item" href="/baixos/editar">Criar</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="projetos-navbar" role="button"
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Baterias
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <li><a class="dropdown-item" href="/baterias">Listar</a></li>
-                            <li><a class="dropdown-item" href="/baterias/editar">Criar</a></li>
-                        </ul>
-                    </li>
+                    <a class="nav-link active" aria-current="page" href="/">Início</a>
+                    {% for item in itens_do_menu %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="linguagens-navbar" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ item | title }}
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                <li><a class="dropdown-item" href="{% url 'guitarras:guitarras' %}">Listar</a></li>
+                                <li><a class="dropdown-item" href="{% url 'guitarras:criar' %}">Criar</a></li>
+                            </ul>
+                        </li>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -59,7 +41,6 @@
 
 <div class="container">
     {% block conteudo %}
-        
     {% endblock conteudo %}
 </div>
 
